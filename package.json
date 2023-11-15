@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-automatic-tags",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Add tags to new notes automatically based on their path",
 	"main": "main.js",
 	"scripts": {

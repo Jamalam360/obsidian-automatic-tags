@@ -18,7 +18,7 @@ export default class AutomaticTagsPlugin extends Plugin {
 		this.addSettingTab(new AutomaticTagsSettingTab(this.app, this));
 
 		this.app.workspace.onLayoutReady(() => {
-			this.app.vault.on("create", async (file) => {
+			this.registerEvent(this.app.vault.on("create", async (file) => {
 				if (Object.entries(this.settings.tags).length === 0) return;
 
 				if (file instanceof TFile) {
@@ -38,7 +38,7 @@ export default class AutomaticTagsPlugin extends Plugin {
 						this.addOrUpdateTagsInMarkdown(contents, tags)
 					);
 				}
-			});
+			}));
 		});
 	}
 
