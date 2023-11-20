@@ -1,5 +1,4 @@
 import { App, Plugin, PluginSettingTab, Setting, TFile } from "obsidian";
-import { default as matter, stringify as matterStringify } from "gray-matter";
 
 interface AutomaticTagsSettings {
 	tags: Record<string, string[]>;
@@ -33,7 +32,7 @@ export default class AutomaticTagsPlugin extends Plugin {
 					if (tags.length === 0) return;
 
 					await this.app.fileManager.processFrontMatter(file, (fm) => {
-						fm.tags = [...new Set([...fm.tags, ...tags])];
+						fm.tags = [...new Set([...(fm.tags || []), ...tags])];
 					});
 				}
 			}));
