@@ -1,7 +1,7 @@
 {
 	"id": "automatic-tags",
 	"name": "Automatic Tags",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minAppVersion": "0.15.0",
 	"description": "Add tags to new notes automatically based on their path.",
 	"author": "Jamalam",

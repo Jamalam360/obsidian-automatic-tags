@@ -32,11 +32,9 @@ export default class AutomaticTagsPlugin extends Plugin {
 
 					if (tags.length === 0) return;
 
-					const contents = await this.app.vault.read(file);
-					await this.app.vault.modify(
-						file,
-						this.addOrUpdateTagsInMarkdown(contents, tags)
-					);
+					await this.app.fileManager.processFrontMatter(file, (fm) => {
+						fm.tags = [...new Set([...fm.tags, ...tags])];
+					});
 				}
 			}));
 		});
@@ -54,21 +52,6 @@ export default class AutomaticTagsPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-
-	addOrUpdateTagsInMarkdown(markdown: string, newTags: string[]): string {
-		const { data, content } = matter(markdown);
-
-		if (!data.tags) {
-			data.tags = [];
-		}
-
-		data.tags = [...new Set([...data.tags, ...newTags])];
-
-		// Convert frontmatter and content back to markdown
-		const updatedMarkdown = matterStringify(content, data);
-
-		return updatedMarkdown;
 	}
 
 	matchesGlob(path: string, glob: string): boolean {
